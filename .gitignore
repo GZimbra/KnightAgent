@@ -1,0 +1,35 @@
+# Ambientes e caches Python
+.venv/
+.test-deps/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Saidas de build e distribuicao
+build/
+dist/
+*.spec
+*.exe
+*.lnk
+
+# Dados operacionais e configuracao local
+runtime/
+config.yaml
+config.toml
+*.sqlite*
+*.db
+*.log
+*.diff
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Arquivos do Windows
+Thumbs.db
+Desktop.ini

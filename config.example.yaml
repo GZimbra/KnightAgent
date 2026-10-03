@@ -1,0 +1,29 @@
+workspace: .
+timeout: 120
+max_steps: 30
+context_chars: 24000
+tool_output_chars: 6000
+format_attempts: 3
+ollama:
+  model: qwen2.5:7b
+  url: http://127.0.0.1:11434
+  num_ctx: 8192
+  num_predict: 2048
+  keep_alive: '-1'
+performance:
+  level: medio
+memory:
+  enabled: true
+  scope: global
+knowledge:
+  enabled: true
+  max_chars: 6000
+complementary:
+  copilot: false
+  mode: account
+  client_id: ''
+  tenant: organizations
+roles:
+  planner: ollama
+  executor: ollama
+  reviewer: ollama

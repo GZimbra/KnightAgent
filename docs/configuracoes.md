@@ -1,0 +1,16 @@
+# Configurações
+
+- **IA local:** escolha um modelo instalado e recursos baixo, médio ou alto. Apenas Ollama local executa planejamento, edição e revisão. Alterações reiniciam o motor privado e pré-carregam o modelo sem travar a janela.
+- **Copilot:** único complemento, desativado por padrão. **Entrar com conta Microsoft** conecta a conta de trabalho/escola; **Verificar acesso** testa a autorização para a API, que depende da licença e das políticas da organização. **Trocar conta** e **Desconectar** permitem gerenciar a conexão. Para utilizar o complemento, marque **Ativar auxílio automático do Copilot** e clique em **Salvar configurações**. O login sozinho não ativa o envio de pedidos. Com acesso autorizado e auxílio habilitado, as consultas acontecem em segundo plano na mesma conversa do Ollama.
+- **Biblioteca local:** consulte a quantidade de documentos/trechos e importe TXT, Markdown ou JSON. Não há sincronização online. Os registros já existentes continuam disponíveis offline.
+- **Dados locais:** limpe conversas ou exemplos aprovados com confirmação. Isso não apaga arquivos do projeto nem altera os pesos do modelo.
+
+Não existem perfil de usuário nem seleção de outros provedores externos. O complemento não pede senha nem chave de API no aplicativo; usa o login Microsoft e armazena tokens protegidos por DPAPI para o usuário do Windows. Configurações antigas de outros serviços externos são descartadas em memória e removidas ao salvar. Isso não exclui credenciais antigas já cadastradas no Windows; elas não são lidas nem utilizadas.
+
+Em **Configurações → Copilot → Configuração da organização**, marque **Mostrar configuração da TI**. A TI informa uma vez **ID do aplicativo (client ID)** e **Organização (tenant)** do registro Microsoft Entra autorizado para essa integração. O registro deve usar a plataforma **Mobile and desktop applications**, com redirecionamento `http://localhost`, sem segredo de cliente. Esses identificadores não são senhas. Depois, cada usuário faz seu próprio login. Ter Copilot instalado ou uma assinatura pessoal Premium não substitui os requisitos da API Microsoft 365 Copilot. Veja o [guia de preparo e login](copilot-login.md).
+
+O complemento envia somente o pedido atual, limitado a 4.000 caracteres, com uma instrução fixa de auxílio. Não inclui automaticamente arquivos, conversa anterior, memória nem biblioteca. A resposta online é limitada a 6.000 caracteres e incluída como referência não confiável no contexto local, respeitando o limite de contexto. O Copilot não executa ferramentas nem aprova gravações. Uma falha de conta, licença ou rede gera aviso e a tarefa continua localmente.
+
+O modo médio usa 8.192 tokens de contexto e 2.048 de saída; baixo usa 4.096/1.024 e alto 16.384/4.096. O modelo fica carregado durante a sessão para evitar recargas entre pedidos. CPU/GPU dependem do runtime e hardware disponíveis.
+
+Na instalação Windows, `scripts/configure-offline-firewall.ps1` deve ser executado como Administrador uma vez. A IA exige regras ativas para o runtime privado e, no executável empacotado, para o próprio KnightAgent. O auxiliar `KnightAgentCopilot.exe` possui a comunicação online separada. Se a pasta mudar ou as regras forem removidas, a inicialização é recusada até reaplicar o script. O firewall precisa permanecer ativo.
