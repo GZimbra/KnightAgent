@@ -22,6 +22,7 @@ class ToolCall:
 class ChatResponse:
     content: str = ""
     calls: list[ToolCall] = field(default_factory=list)
+    metrics: dict[str, int] = field(default_factory=dict)
 
 
 class LLMProvider(ABC):

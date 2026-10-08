@@ -6,7 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from . import theme
-from .buttons import rounded_png
+from .buttons import RoundedButton, rounded_png
 from .branding import APP_NAME
 from .theme import BLACK, WHITE, ORANGE, SURFACE, USER_SURFACE, BORDER, MUTED, blend
 
@@ -15,8 +15,8 @@ class RoundedPanel(tk.Frame):
     def __init__(self, parent, variant="surface"):
         super().__init__(parent, bg=BLACK)
         self.surface = {"user": USER_SURFACE, "flow": theme.FLOW_SURFACE}.get(variant, SURFACE)
-        self.highlight = {"user": "#352214", "flow": "#20160f"}.get(variant, "#2c1c11")
-        self.rim_color = "#241a13" if variant == "flow" else BORDER
+        self.highlight = blend(self.surface, WHITE, .05 if variant == "flow" else .07)
+        self.rim_color = blend(theme.FLOW_SURFACE, BORDER, .55) if variant == "flow" else BORDER
         self.radius = 16 if variant == "flow" else 22
         self.gradient_height = 9 if variant == "flow" else 14
         self.border_level = 0.0
@@ -124,9 +124,12 @@ class ScrollArea(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.canvas = tk.Canvas(self, bg=BLACK, highlightthickness=0)
-        self.scrollbar = ttk.Scrollbar(self, command=self.canvas.yview)
-        self.canvas.configure(yscrollcommand=self.scrollbar.set)
-        self.scrollbar.pack(side="right", fill="y")
+        self._wheel_remainder = 0.0
+        gutter = ttk.Frame(self, width=12)
+        gutter.pack(side="right", fill="y")
+        gutter.pack_propagate(False)
+        self.scrollbar = ttk.Scrollbar(gutter, command=self.canvas.yview)
+        self.canvas.configure(yscrollcommand=self._scroll_state)
         self.canvas.pack(side="left", fill="both", expand=True)
         self.body = ttk.Frame(self.canvas)
         self.window = self.canvas.create_window(0, 0, window=self.body, anchor="nw")
@@ -135,11 +138,22 @@ class ScrollArea(ttk.Frame):
         self.canvas.bind("<MouseWheel>", self._wheel)
         self.body.bind("<MouseWheel>", self._wheel)
 
+    def _scroll_state(self, first, last):
+        self.scrollbar.set(first, last)
+        if float(first) > 0 or float(last) < .999:
+            self.scrollbar.pack(fill="y", expand=True)
+        else:
+            self.scrollbar.pack_forget()
+
     def _resize(self, event):
         self.canvas.itemconfigure(self.window, width=event.width)
 
     def _wheel(self, event):
-        self.canvas.yview_scroll(-int(event.delta / 120), "units")
+        self._wheel_remainder -= event.delta / 120 * 3
+        units = int(self._wheel_remainder)
+        if units:
+            self._wheel_remainder -= units
+            self.canvas.yview_scroll(units, "units")
         return "break"
 
     def follow(self):
@@ -175,7 +189,9 @@ class ReadableText(tk.Text):
         self.bind("<MouseWheel>", self._wheel)
 
     def _wheel(self, event):
-        if int(self.cget("height")) >= 18:
+        first, last = self.yview()
+        if int(self.cget("height")) >= 18 and ((event.delta > 0 and first > 0)
+                                                    or (event.delta < 0 and last < 1)):
             return None
         parent = self.master
         while parent is not None:
@@ -224,8 +240,16 @@ class FlowCard(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent, padding=(0, 12, 0, 14))
         self.pack(fill="x", padx=8, pady=(0, 16))
-        ttk.Label(self, text=APP_NAME, font=(theme.UI_FONT, 13, "bold")).pack(anchor="w", pady=(0, 14))
+        header = ttk.Frame(self)
+        header.pack(fill="x", pady=(0, 14))
+        ttk.Label(header, text=APP_NAME, font=(theme.UI_FONT, 13, "bold")).pack(side="left")
+        self.details_button = RoundedButton(header, text="Ver etapas", style="Ghost.TButton",
+                                            command=self.toggle_details)
         self.nodes = []
+        self.summary_panel = None
+        self.summary_text = None
+        self.result_text = None
+        self.error_text = None
         self.graph = ttk.Frame(self)
         self.graph.pack(fill="x")
         self.rail = tk.Canvas(self.graph, width=28, height=1, bg=BLACK, highlightthickness=0)
@@ -242,8 +266,104 @@ class FlowCard(ttk.Frame):
         self.bind("<Destroy>", self._destroy_motion)
 
     def set_running(self, running):
+        if self.summary_panel is not None:
+            return
         self.running = running
         self._ensure_motion()
+
+    def _summary(self):
+        saved = []
+        consultations = 0
+        reviewed = False
+        decisions = []
+        warnings = 0
+        fallback = None
+        for kind, content, _node in self.nodes:
+            if content.startswith(("[planner] read_file", "[planner] list_directory",
+                                   "[planner] search_text", "[executor] read_file",
+                                   "[executor] list_directory", "[executor] search_text")):
+                consultations += 1
+            elif content.startswith("[executor] SALVO: "):
+                path = content.partition("SALVO: ")[2].strip()
+                if path and path not in saved:
+                    saved.append(path)
+            elif kind == "decision":
+                decisions.append(content)
+            elif kind == "event" and content.startswith("APROVADO"):
+                reviewed = True
+            elif kind == "event" and content.startswith("AVISO:"):
+                warnings += 1
+            if kind == "event" and not content.startswith(("[", "APROVADO", "CORRIGIR", "AVISO:")) \
+                    and content not in {"Planejando...", "Plano preparado.", "Executando...", "Revisando..."}:
+                fallback = content
+
+        lines = []
+        if consultations:
+            lines.append(f"• Consultas ao projeto: {consultations}.")
+        if saved:
+            paths = ", ".join(saved[:3])
+            extra = f" e mais {len(saved) - 3}" if len(saved) > 3 else ""
+            lines.append(f"• Arquivos salvos: {paths}{extra}.")
+        approved = sum("aprovad" in decision.lower() for decision in decisions)
+        refused = sum("recusad" in decision.lower() for decision in decisions)
+        if approved:
+            lines.append(f"• Alterações aprovadas: {approved}.")
+        if refused:
+            lines.append(f"• Alterações recusadas: {refused}.")
+        if reviewed:
+            lines.append("• Revisão do agente: aprovada.")
+        if warnings:
+            lines.append(f"• Avisos: {warnings}. Consulte as etapas para detalhes.")
+        if not lines:
+            lines.append("• Pedido analisado.")
+        outcome = self.error_text or self.result_text or fallback
+        if outcome:
+            lines.extend(("", "Resultado", outcome))
+        return "\n".join(lines)
+
+    def finalize(self):
+        if self.summary_panel is not None:
+            return None
+        self.running = False
+        if self.timer is not None:
+            self.after_cancel(self.timer)
+            self.timer = None
+        for link in self.links:
+            link["progress"] = 1.0
+        self._draw_links()
+        self.graph.pack_forget()
+        self.summary_panel = panel = RoundedPanel(self, variant="flow")
+        panel.pack(fill="x")
+        title = "Execução interrompida" if self.error_text else "Resumo da execução"
+        ttk.Label(panel.body, text=title, style="Flow.TLabel",
+                  font=(theme.UI_FONT, 12, "bold"), foreground=ORANGE).pack(anchor="w", pady=(0, 4))
+        text_frame = ttk.Frame(panel.body, style="Flow.TFrame")
+        text_frame.pack(fill="x")
+        self.summary_text = ReadableText(text_frame, self._summary(), surface=panel.surface)
+        self.summary_text.pack(side="left", fill="x", expand=True)
+        gutter = ttk.Frame(text_frame, style="Flow.TFrame", width=12)
+        gutter.pack(side="right", fill="y")
+        gutter.pack_propagate(False)
+        scrollbar = ttk.Scrollbar(gutter, command=self.summary_text.yview)
+        def scroll_state(first, last):
+            scrollbar.set(first, last)
+            if float(first) > 0 or float(last) < .999:
+                scrollbar.pack(fill="y", expand=True)
+            else:
+                scrollbar.pack_forget()
+        self.summary_text.configure(yscrollcommand=scroll_state)
+        self.details_button.pack(side="right")
+        return panel
+
+    def toggle_details(self):
+        if self.summary_panel is None:
+            return
+        if self.graph.winfo_manager():
+            self.graph.pack_forget()
+            self.details_button.configure(text="Ver etapas")
+        else:
+            self.graph.pack(fill="x", pady=(10, 0))
+            self.details_button.configure(text="Ocultar etapas")
 
     def select_node(self, selected):
         self.selected_node = selected
@@ -292,6 +412,10 @@ class FlowCard(ttk.Frame):
 
     def add(self, kind, content, animate=True):
         if kind == "result":
+            self.result_text = content
+        elif kind == "error":
+            self.error_text = content
+        if kind == "result":
             for old_kind, old_content, node in self.nodes:
                 if old_kind == "event" and old_content == content:
                     node.heading.configure(text="Resposta")
@@ -312,7 +436,10 @@ class FlowCard(ttk.Frame):
         node.text = text
         if content in {"Planejando...", "Executando...", "Revisando...", "Plano preparado."}:
             text_frame.pack_forget()
-        scrollbar = ttk.Scrollbar(text_frame, command=text.yview)
+        gutter = ttk.Frame(text_frame, style="Flow.TFrame", width=12)
+        gutter.pack(side="right", fill="y")
+        gutter.pack_propagate(False)
+        scrollbar = ttk.Scrollbar(gutter, command=text.yview)
         def scroll_state(first, last):
             scrollbar.set(first, last)
             if float(first) > 0 or float(last) < .999:
@@ -333,6 +460,7 @@ class FlowCard(ttk.Frame):
         panel.bind_effects(lambda: self.select_node(node))
         self._draw_links()
         self._ensure_motion()
+        return node
 
 
 def user_card(parent, content):
@@ -340,7 +468,10 @@ def user_card(parent, content):
     card.pack(fill="x", padx=(80, 8), pady=(18, 12))
     text = ReadableText(card.body, content, surface=USER_SURFACE)
     text.pack(side="left", fill="x", expand=True)
-    scrollbar = ttk.Scrollbar(card.body, command=text.yview)
+    gutter = ttk.Frame(card.body, style="User.TFrame", width=12)
+    gutter.pack(side="right", fill="y")
+    gutter.pack_propagate(False)
+    scrollbar = ttk.Scrollbar(gutter, command=text.yview)
     def scroll_state(first, last):
         scrollbar.set(first, last)
         if float(first) > 0 or float(last) < .999:
@@ -349,3 +480,4 @@ def user_card(parent, content):
             scrollbar.pack_forget()
     text.configure(yscrollcommand=scroll_state)
     card.bind_effects()
+    return card

@@ -1,19 +1,19 @@
-"""Warm tonal palette and native gradients, derived from black, orange and white."""
+"""Black, white and orange interface palette with neutral surface tones."""
 
 import math
 from time import monotonic
 import tkinter as tk
 from tkinter import ttk
 
-BLACK = "#080808"
-WHITE = "#f5f5f5"
-ORANGE = "#ff8b36"
+BLACK = "#000000"
+WHITE = "#ffffff"
+ORANGE = "#ffa600"
 SIDEBAR = "#000000"
-SURFACE = "#14110f"
-USER_SURFACE = "#20170f"
-BORDER = "#34251b"
-MUTED = "#bfb7b1"
-FLOW_SURFACE = "#110f0d"
+SURFACE = "#161616"
+USER_SURFACE = "#1d1d1d"
+BORDER = "#353535"
+MUTED = "#b8b8b8"
+FLOW_SURFACE = "#101010"
 UI_FONT = "Segoe UI"
 
 
@@ -35,7 +35,7 @@ def apply_theme(root):
         tkfont.nametofont(name, root=root).configure(family=UI_FONT, size=12)
     root.option_add("*TCombobox*Listbox.background", SURFACE)
     root.option_add("*TCombobox*Listbox.foreground", WHITE)
-    root.option_add("*TCombobox*Listbox.selectBackground", "#3a2515")
+    root.option_add("*TCombobox*Listbox.selectBackground", blend(SURFACE, ORANGE, .20))
     root.option_add("*TCombobox*Listbox.selectForeground", WHITE)
     style = ttk.Style(root)
     style.theme_use("clam")
@@ -56,13 +56,14 @@ def apply_theme(root):
     style.configure("Title.TLabel", font=(UI_FONT, 26, "bold"))
     style.configure("TEntry", fieldbackground=BLACK, foreground=WHITE,
                     insertcolor=ORANGE, padding=round(8*scale))
-    style.map("TEntry", bordercolor=[("focus", "#b9662c")],
-              lightcolor=[("focus", "#b9662c")], darkcolor=[("focus", "#b9662c")])
+    focus_border = blend(BORDER, ORANGE, .68)
+    style.map("TEntry", bordercolor=[("focus", focus_border)],
+              lightcolor=[("focus", focus_border)], darkcolor=[("focus", focus_border)])
     style.configure("TCombobox", fieldbackground=BLACK, background=SURFACE, foreground=WHITE,
                     arrowcolor=ORANGE, padding=round(7*scale))
     style.map("TCombobox", fieldbackground=[("readonly", BLACK)],
-              foreground=[("readonly", WHITE)], selectbackground=[("!disabled", "#3a2515")],
-              selectforeground=[("!disabled", WHITE)], background=[("active", "#241a12")])
+              foreground=[("readonly", WHITE)], selectbackground=[("!disabled", blend(SURFACE, ORANGE, .20))],
+              selectforeground=[("!disabled", WHITE)], background=[("active", USER_SURFACE)])
     for prefix, background in (("", BLACK), ("Section.", SURFACE)):
         for kind in ("TCheckbutton", "TRadiobutton"):
             name = prefix+kind
@@ -79,15 +80,16 @@ def apply_theme(root):
                         font=(UI_FONT, 13, "bold"))
     style.layout("Vertical.TScrollbar", [("Vertical.Scrollbar.trough", {
         "sticky": "ns", "children": [("Vertical.Scrollbar.thumb", {"expand": "1", "sticky": "nswe"})]})])
-    style.configure("Vertical.TScrollbar", background=BORDER, width=round(5*scale),
-                    arrowsize=0, borderwidth=0, relief="flat", bordercolor=BLACK,
-                    lightcolor=BORDER, darkcolor=BORDER)
-    style.map("Vertical.TScrollbar", background=[("active", "#82502b")])
+    style.configure("Vertical.TScrollbar", background=BORDER, troughcolor=BLACK,
+                    width=round(8*scale), arrowsize=0, borderwidth=0, relief="flat",
+                    bordercolor=BLACK, lightcolor=BORDER, darkcolor=BORDER)
+    style.map("Vertical.TScrollbar", background=[("active", blend(BORDER, ORANGE, .48)),
+                                                  ("pressed", blend(BORDER, ORANGE, .62))])
     # Native fallback. Application buttons use RoundedButton's full-size renderer.
     style.configure("TButton", padding=(round(14*scale), round(9*scale)),
                     background=SURFACE, foreground=WHITE, font=(UI_FONT, 12),
                     borderwidth=0, relief="flat", focuscolor=SURFACE)
-    style.map("TButton", background=[("active", "#261b13"), ("pressed", "#20170f")],
+    style.map("TButton", background=[("active", USER_SURFACE), ("pressed", FLOW_SURFACE)],
               foreground=[("disabled", MUTED)])
     style.configure("Accent.TButton", background=ORANGE, foreground=BLACK)
     style.configure("Ghost.TButton", background=SIDEBAR)
@@ -125,7 +127,7 @@ class ThinkingOrb(tk.Canvas):
         self.dots = []
         # A Fibonacci distribution avoids rigid latitude rows and clumps at
         # the poles, preserving a round silhouette at every rotation angle.
-        count = 510
+        count = 130 if size < 80 else 510
         golden_angle = math.pi * (3 - math.sqrt(5))
         for index in range(count):
             y = 1 - 2 * (index + .5) / count
@@ -156,7 +158,7 @@ class ThinkingOrb(tk.Canvas):
             cx = self.size / 2 + xx * self.size * .335 * perspective * breath
             cy = self.size / 2 - yy * self.size * .335 * perspective * breath
             front = (depth + 1) / 2
-            r = (.48 + .91 * front ** 1.3) * self.size / 190
+            r = max(.55, (.48 + .91 * front ** 1.3) * self.size / 190)
             self.coords(item, cx-r, cy-r, cx+r, cy+r)
             # All resting points belong to the white/black ramp. While busy,
             # a soft moving highlight varies the orange without hard flashes.

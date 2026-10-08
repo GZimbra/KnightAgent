@@ -23,6 +23,7 @@ class MemoryStore:
             raise ValueError("Escopo da memoria invalido.")
         self.path = Path(path)
         self.scope = scope
+        self.last_recalled_ids = []
 
     def _open(self):
         connection = sqlite3.connect(self.path, timeout=5)
@@ -54,28 +55,31 @@ class MemoryStore:
             except (OSError, ValueError, UnicodeError):
                 continue
         if not files:
-            return
+            return None
         with closing(self._open()) as db:
             with db:
-                db.execute("INSERT INTO examples (workspace, request, summary, files) VALUES (?, ?, ?, ?)",
-                           (str(workspace), request[:3000], summary[:2000], json.dumps(files, ensure_ascii=False)))
+                cursor = db.execute("INSERT INTO examples (workspace, request, summary, files) VALUES (?, ?, ?, ?)",
+                                    (str(workspace), request[:3000], summary[:2000], json.dumps(files, ensure_ascii=False)))
                 db.execute("DELETE FROM examples WHERE id NOT IN (SELECT id FROM examples ORDER BY id DESC LIMIT 500)")
+                return cursor.lastrowid
 
     def recall(self, query, workspace, limit=3):
+        self.last_recalled_ids = []
         query_terms = terms(query)
         if not query_terms:
             return []
         with closing(self._open()) as db:
             if self.scope == "workspace":
-                rows = db.execute("SELECT request, summary, files FROM examples WHERE workspace=? ORDER BY id DESC LIMIT 300", (str(workspace),)).fetchall()
+                rows = db.execute("SELECT id, request, summary, files FROM examples WHERE workspace=? ORDER BY id DESC LIMIT 300", (str(workspace),)).fetchall()
             else:
-                rows = db.execute("SELECT request, summary, files FROM examples ORDER BY id DESC LIMIT 300").fetchall()
+                rows = db.execute("SELECT id, request, summary, files FROM examples ORDER BY id DESC LIMIT 300").fetchall()
         ranked = []
-        for request, summary, files in rows:
+        for example_id, request, summary, files in rows:
             score = len(query_terms & terms(request))
             if score:
-                ranked.append((score, request, summary, files))
+                ranked.append((score, example_id, request, summary, files))
         ranked.sort(key=lambda item: item[0], reverse=True)
+        self.last_recalled_ids = [item[1] for item in ranked[:limit]]
         return [{"pedido": request[:500], "resultado": summary[:500],
                  "arquivos": [{"path": item["path"], "content": item["content"][:1500]} for item in json.loads(files)[:2]]}
-                for _, request, summary, files in ranked[:limit]]
+                for _, _, request, summary, files in ranked[:limit]]

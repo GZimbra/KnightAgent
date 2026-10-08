@@ -140,6 +140,11 @@ class Agent:
         raise ProviderError("Revisor nao retornou APROVADO ou CORRIGIR; arquivo salvo, revisao encerrada sem repetir a edicao.")
 
     def run(self, request):
+        self.last_created_example_id = None
+        if self.knowledge is not None:
+            self.knowledge.last_document_ids = []
+        if self.memory is not None:
+            self.memory.last_recalled_ids = []
         self.tools.changed.clear()
         self.tools.write_count = 0
         self.tools.refused = False
@@ -227,7 +232,7 @@ class Agent:
                 self.dialog.extend([("usuario", request), ("assistente", result)])
                 if self.memory is not None:
                     try:
-                        self.memory.remember(request, result, self.tools.workspace.root, self.tools)
+                        self.last_created_example_id = self.memory.remember(request, result, self.tools.workspace.root, self.tools)
                     except (OSError, ValueError, sqlite3.Error):
                         self.emit("AVISO: arquivos salvos, mas a memoria local nao conseguiu registrar o exemplo.")
                 return result

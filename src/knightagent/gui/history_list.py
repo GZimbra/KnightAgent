@@ -188,11 +188,14 @@ class HistoryList(tk.Canvas):
             y = self.inset + index * self.row_height
             selected = index == self._selected
             hover = self._hover_levels.get(index, 0.0) if not disabled else 0.0
-            tone = .07 + .015 * hover if selected else .04 * hover
+            tone = .10 + .02 * hover if selected else .05 * hover
             fill = _blend(background, ORANGE if selected else WHITE, tone)
-            outline = _blend(BORDER, WHITE, .12) if selected and self._focused else fill
+            outline = _blend(BORDER, ORANGE, .42 if self._focused else .18) if selected else fill
             self._rounded(2, y + 2, width - 2, y + self.row_height - 2,
                           fill=fill, outline=outline)
+            if selected:
+                self.create_line(4, y + 12, 4, y + self.row_height - 12,
+                                 fill=ORANGE, width=2, capstyle="round", tags="history-row")
             center = y + self.row_height / 2
             text_color = MUTED if disabled else self._foreground if selected else _blend(MUTED, WHITE, .64)
             icon_color = _blend(BLACK, ORANGE, .62) if disabled and selected else ORANGE if selected else MUTED

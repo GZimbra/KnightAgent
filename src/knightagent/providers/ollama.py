@@ -51,12 +51,21 @@ class OllamaProvider(HTTPProvider):
             raise ProviderError("Ollama nao confirmou o carregamento local do modelo.")
         return f"IA local pronta: {self.model}."
 
-    def chat(self, messages, tools):
+    def chat(self, messages, tools, *, generation_options=None):
         if self.native is None:
             self.test_connection()
         payload = {"model": self.model, "messages": list(messages), "stream": False,
                    "keep_alive": self.keep_alive,
                    "options": {"num_ctx": self.num_ctx, "num_predict": self.num_predict, "temperature": 0.2}}
+        if generation_options:
+            if (set(generation_options) - {"seed", "inherit_model_settings"}
+                    or type(generation_options.get("seed")) is not int
+                    or type(generation_options.get("inherit_model_settings", False)) is not bool):
+                raise ValueError("Opcoes de geracao do benchmark invalidas.")
+            if generation_options.get("inherit_model_settings"):
+                # Ollama applies the Modelfile's parameters when they are omitted.
+                payload["options"] = {}
+            payload["options"]["seed"] = generation_options["seed"]
         if tools and self.native:
             payload["tools"] = [{"type": "function", "function": t} for t in tools]
         elif tools:
@@ -69,10 +78,14 @@ class OllamaProvider(HTTPProvider):
             raise ProviderError("Resposta de modelo remoto rejeitada pelo modo local.")
         if isinstance(data, dict) and data.get("done_reason") == "length":
             raise ProviderError("Ollama atingiu o limite de saida; aumente num_predict ou divida a tarefa. Nenhuma ferramenta desta resposta foi executada.")
+        metric_names = ("prompt_eval_count", "eval_count", "total_duration", "eval_duration", "load_duration")
+        metrics = {name: data[name] for name in metric_names if type(data.get(name)) is int and data[name] >= 0}
         try:
             msg = data["message"]
             if tools and not self.native:
-                return parse_envelope(msg["content"], tools)
-            return ChatResponse(msg.get("content", ""), [ToolCall(c["function"]["name"], c["function"]["arguments"]) for c in msg.get("tool_calls", [])])
+                response = parse_envelope(msg["content"], tools)
+                response.metrics = metrics
+                return response
+            return ChatResponse(msg.get("content", ""), [ToolCall(c["function"]["name"], c["function"]["arguments"]) for c in msg.get("tool_calls", [])], metrics)
         except (KeyError, TypeError, AttributeError):
             raise FormatError("Resposta Ollama malformada.") from None

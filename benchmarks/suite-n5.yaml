@@ -1,0 +1,17 @@
+schema_version: 2
+models:
+  - qwen2.5:7b
+  - knightagent-automation:latest
+repetitions: 5
+seed: 20261003
+validator_timeout_seconds: 8
+sandbox:
+  backend: wsl
+  distro: kali-linux
+  memory_mb: 512
+  cpu_seconds: 3
+  wall_seconds: 10
+task_files:
+  - development.json
+  - holdout.json
+  - holdout_extra.json

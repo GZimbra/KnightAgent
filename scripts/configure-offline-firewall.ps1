@@ -8,6 +8,8 @@ if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administra
 }
 $runtimeRoot = Join-Path $projectRoot 'runtime\ollama'
 $programs = @((Join-Path $projectRoot 'KnightAgent.exe'), (Join-Path $runtimeRoot 'ollama.exe'))
+$versionedExecutable = Join-Path $projectRoot 'KAgent V-0.1.exe'
+if (Test-Path -LiteralPath $versionedExecutable -PathType Leaf) { $programs += $versionedExecutable }
 $programs += @(Get-ChildItem -LiteralPath $runtimeRoot -Recurse -File -Filter '*.exe' | Select-Object -ExpandProperty FullName)
 $remoteAddresses = @('0.0.0.0-126.255.255.255', '128.0.0.0-255.255.255.255', '::2-ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff')
 $hash = [Security.Cryptography.SHA256]::Create()

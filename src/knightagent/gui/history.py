@@ -17,6 +17,11 @@ class ChatHistory:
                 id INTEGER PRIMARY KEY, chat_id INTEGER NOT NULL REFERENCES chats(id),
                 kind TEXT NOT NULL, content TEXT NOT NULL);
             CREATE INDEX IF NOT EXISTS messages_chat ON messages(chat_id, id);
+            CREATE TABLE IF NOT EXISTS usage_links (
+                request_message_id INTEGER NOT NULL REFERENCES messages(id) ON DELETE CASCADE,
+                source_kind TEXT NOT NULL CHECK(source_kind IN ('document', 'example', 'learned')),
+                source_id TEXT NOT NULL,
+                PRIMARY KEY (request_message_id, source_kind, source_id));
         """)
 
     def create(self, workspace, title):
@@ -34,10 +39,19 @@ class ChatHistory:
 
     def append(self, chat_id, kind, content):
         with self.db:
-            self.db.execute("INSERT INTO messages(chat_id, kind, content) VALUES (?, ?, ?)",
-                            (chat_id, kind, content))
+            cursor = self.db.execute("INSERT INTO messages(chat_id, kind, content) VALUES (?, ?, ?)",
+                                     (chat_id, kind, content))
             self.db.execute("UPDATE chats SET updated=? WHERE id=?",
                             (datetime.now(timezone.utc).isoformat(), chat_id))
+        return cursor.lastrowid
+
+    def record_usage(self, request_message_id, documents=(), examples=(), learned=None):
+        with self.db:
+            self.db.executemany("INSERT OR IGNORE INTO usage_links VALUES (?, ?, ?)",
+                                [(request_message_id, kind, str(source_id))
+                                 for kind, ids in (("document", documents), ("example", examples),
+                                                   ("learned", (learned,) if learned is not None else ()))
+                                 for source_id in ids])
 
     def dialog(self, chat_id):
         # Only completed user/result pairs become model context. Events, diffs,
@@ -57,5 +71,6 @@ class ChatHistory:
     def clear(self):
         self.db.execute("PRAGMA secure_delete = ON")
         with self.db:
+            self.db.execute("DELETE FROM usage_links")
             self.db.execute("DELETE FROM messages")
             self.db.execute("DELETE FROM chats")

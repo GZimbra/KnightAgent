@@ -98,6 +98,7 @@ class ChatDesktopTests(unittest.TestCase):
         self.drain()
         self.assertFalse(self.app.busy)
         self.assertEqual(self.app.history.messages(chat_id)[-2]["kind"], "decision")
+        self.assertIn("Alterações recusadas: 1.", self.app.flow.summary_text.get("1.0", "end"))
 
     def test_saved_copilot_client_reaches_agent_and_local_model_only_when_enabled(self):
         initial_client = self.app.copilot_client
@@ -144,6 +145,8 @@ class ChatDesktopTests(unittest.TestCase):
         self.drain()
         self.assertEqual(str(self.app.input.cget("state")), "normal")
         self.assertTrue(any(row["kind"] == "error" for row in self.app.history.messages(self.app.chat_id)))
+        self.assertEqual(self.app.flow.graph.winfo_manager(), "")
+        self.assertIn("Modelo indisponível", self.app.flow.summary_text.get("1.0", "end"))
 
     def test_interrupted_chat_never_reactivates_approval(self):
         chat_id = self.app.history.create(self.temp.name, "Interrompida")
@@ -156,6 +159,40 @@ class ChatDesktopTests(unittest.TestCase):
         self.assertFalse(self.app.busy)
         self.assertEqual(self.app.restored_dialog, [])
         self.assertEqual(self.app.flow.nodes[-1][0], "error")
+        self.assertEqual(self.app.flow.graph.winfo_manager(), "")
+        self.assertIn("Esta execução foi interrompida", self.app.flow.summary_text.get("1.0", "end"))
+
+    def test_execution_steps_collapse_into_summary_and_restore_collapsed(self):
+        self.send_without_thread("Crie um arquivo")
+        chat_id = self.app.chat_id
+        self.app.events.put(("event", "Planejando..."))
+        self.app.events.put(("event", "[planner] read_file"))
+        self.app.events.put(("event", "[executor] SALVO: src/exemplo.py"))
+        self.drain()
+        self.assertEqual(self.app.flow.graph.winfo_manager(), "pack")
+        self.assertIsNone(self.app.flow.summary_panel)
+
+        self.app.events.put(("event", "APROVADO"))
+        self.app.events.put(("result", "Arquivo criado e revisado."))
+        self.app.events.put(("done", None))
+        self.drain()
+        flow = self.app.flow
+        self.assertEqual(flow.graph.winfo_manager(), "")
+        summary = flow.summary_text.get("1.0", "end")
+        self.assertIn("src/exemplo.py", summary)
+        self.assertIn("Arquivo criado e revisado.", summary)
+        self.assertIn("Revisão do agente: aprovada", summary)
+        flow.details_button.invoke()
+        self.assertEqual(flow.graph.winfo_manager(), "pack")
+        flow.details_button.invoke()
+        self.assertEqual(flow.graph.winfo_manager(), "")
+
+        self.app._new_chat()
+        self.app.chat_list.selection_set(0)
+        self.app._open_chat()
+        self.assertEqual(self.app.chat_id, chat_id)
+        self.assertEqual(self.app.flow.graph.winfo_manager(), "")
+        self.assertIn("src/exemplo.py", self.app.flow.summary_text.get("1.0", "end"))
 
     def test_compact_layout_keeps_composer_and_flow_visible(self):
         self.root.geometry("900x680")
@@ -171,6 +208,55 @@ class ChatDesktopTests(unittest.TestCase):
             self.assertLess(node.winfo_height(), 150)
         self.assertLess(self.app.input.winfo_rooty() + self.app.input.winfo_height(),
                         self.root.winfo_rooty() + self.root.winfo_height())
+
+    def test_split_layout_keeps_sidebar_chat_and_dividers_aligned(self):
+        self.root.geometry("900x680")
+        self.root.deiconify()
+        self.root.update()
+        self.assertEqual(self.app.vertical_divider.winfo_width(), 1)
+        self.assertEqual(self.app.vertical_divider.winfo_rootx(),
+                         self.app.sidebar.winfo_rootx() + self.app.sidebar.winfo_width())
+        self.assertEqual(self.app.main.winfo_rootx(), self.app.vertical_divider.winfo_rootx() + 1)
+        self.assertEqual(self.app.header_divider.winfo_width(), self.app.main.winfo_width())
+        self.assertGreater(self.app.feed.winfo_height(), 180)
+        self.assertLess(self.app.composer_divider.winfo_rooty(), self.app.composer_panel.winfo_rooty())
+        self.assertEqual(self.app.empty.winfo_manager(), "place")
+        self.app._render("user", "Mensagem")
+        self.assertFalse(self.app.empty.winfo_exists())
+        self.app._new_chat()
+        self.assertEqual(self.app.empty.winfo_manager(), "place")
+
+    def test_history_refresh_keeps_scrolled_conversation_in_view(self):
+        for index in range(35):
+            self.app.history.create(self.temp.name, f"Conversa {index}")
+        self.root.deiconify()
+        self.app._refresh_history()
+        self.root.update_idletasks()
+        self.app.chat_list.yview_scroll(10 * self.app.chat_list.row_height, "units")
+        self.root.update_idletasks()
+        before = self.app.chat_list.canvasy(0)
+        self.assertGreater(before, self.app.chat_list.inset)
+        self.app.history.create(self.temp.name, "Conversa nova")
+        self.app._refresh_history()
+        self.root.update_idletasks()
+        self.assertAlmostEqual(self.app.chat_list.canvasy(0) - before,
+                               self.app.chat_list.row_height, delta=2)
+
+    def test_wheel_exits_long_message_at_its_edge(self):
+        from types import SimpleNamespace
+
+        self.root.deiconify()
+        self.app._render("user", "Linha longa de texto.\n" * 100)
+        self.app._render("result", "Resposta longa.\n" * 100)
+        self.root.update_idletasks()
+        text = self.app.flow.nodes[0][2].text
+        self.assertLess(text.yview()[1], 1)
+        self.assertIsNone(text._wheel(SimpleNamespace(delta=-120)))
+        text.yview_moveto(1)
+        self.app.feed.canvas.yview_moveto(0)
+        before = self.app.feed.canvas.yview()[0]
+        self.assertEqual(text._wheel(SimpleNamespace(delta=-120)), "break")
+        self.assertGreater(self.app.feed.canvas.yview()[0], before)
 
     def test_flow_arrows_grow_sequentially_and_survive_resize(self):
         from knightagent.gui.chat_widgets import FlowCard

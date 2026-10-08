@@ -98,6 +98,7 @@ def _documents_from_file(path, family, raw):
 class KnowledgeBase:
     def __init__(self, path):
         self.path = Path(path)
+        self.last_document_ids = []
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with closing(self._open()) as db, db:
             db.execute("CREATE TABLE IF NOT EXISTS documents(id TEXT PRIMARY KEY, family TEXT NOT NULL, title TEXT NOT NULL, url TEXT NOT NULL, origin TEXT NOT NULL, digest TEXT NOT NULL, updated_at TEXT NOT NULL)")
@@ -148,6 +149,7 @@ class KnowledgeBase:
                     "families": families, "last_sync": {family: json.loads(report) for family, report in db.execute("SELECT family, report FROM sync_runs")}}
 
     def search(self, query, limit=4, max_chars=6000):
+        self.last_document_ids = []
         if not isinstance(query, str) or type(limit) is not int or not 1 <= limit <= 20 or type(max_chars) is not int or not 1 <= max_chars <= 20000:
             raise ValueError("Parametros de busca invalidos.")
         plain = _plain(query)
@@ -182,13 +184,14 @@ class KnowledgeBase:
             if len(selected) == limit:
                 break
         pieces, remaining = [], max_chars
-        for index, (_, title, url, family, text) in enumerate(selected):
+        for document_id, title, url, family, text in selected:
             header = f"[{family}] {title}\nFonte local armazenada (sem consulta online): {url}\n"
             allowance = min(remaining, max_chars // max(1, len(selected)))
             if allowance <= len(header) + 40:
                 continue
             piece = (header + text[:allowance - len(header) - 2] + "\n\n")[:remaining]
             pieces.append(piece)
+            self.last_document_ids.append(document_id)
             remaining -= len(piece)
         return "".join(pieces)
 

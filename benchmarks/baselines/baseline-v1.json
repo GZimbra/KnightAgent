@@ -1,0 +1,2376 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-03T21:46:12.954975+00:00",
+  "suite_sha256": "542f7ab7a6295fbc9671973709e853487ff5264a8cdbf911c31054be917b750a",
+  "task_sha256": {
+    "development.json": "7add9f0b6e0958139fb8ee85e0a0ec3c3362ff23d098bb13edfc98e8d80ac0a0",
+    "holdout.json": "f6342f2019056f379763f023e4bcd86696be2a23f3bdb747a2f169712d842b0b"
+  },
+  "model_config": {
+    "num_ctx": 8192,
+    "num_predict": 2048,
+    "keep_alive": "-1",
+    "temperature": 0.2,
+    "seed_base": 20261003,
+    "timeout": 120,
+    "context_chars": 24000
+  },
+  "repetitions": 3,
+  "model_errors": {},
+  "runs": [
+    {
+      "task_id": "python-count-even",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "code_only",
+          "status": "failed",
+          "detail": "Explanatory text outside code"
+        },
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 6.875,
+      "ollama_metrics": {
+        "prompt_eval_count": 904,
+        "eval_count": 115,
+        "total_duration": 6741586800,
+        "eval_duration": 5462173000,
+        "load_duration": 110279300
+      },
+      "output_sha256": "b66970245aa73e4b1f3de7ddeecccb130a16b2b1a284ad5b5161b6d962e4fa1c"
+    },
+    {
+      "task_id": "python-count-even",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "code_only",
+          "status": "failed",
+          "detail": "Explanatory text outside code"
+        },
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 5.563,
+      "ollama_metrics": {
+        "prompt_eval_count": 904,
+        "eval_count": 109,
+        "total_duration": 5380541100,
+        "eval_duration": 5184898000,
+        "load_duration": 120110700
+      },
+      "output_sha256": "3c8606f76e6d3e5b6fff591859b6773942f485cdf6eb0eb0167d07267cb1eeff"
+    },
+    {
+      "task_id": "python-count-even",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "code_only",
+          "status": "failed",
+          "detail": "Explanatory text outside code"
+        },
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 5.5,
+      "ollama_metrics": {
+        "prompt_eval_count": 904,
+        "eval_count": 109,
+        "total_duration": 5425098400,
+        "eval_duration": 5239043000,
+        "load_duration": 120422300
+      },
+      "output_sha256": "dcc9ce22d3d4217c50c8476e0e058df26daa7c53573f8869a84a872684ebe7a2"
+    },
+    {
+      "task_id": "python-merge-intervals",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "failed",
+          "detail": "ValueError: Function mutated input arguments"
+        }
+      ],
+      "wall_seconds": 9.156,
+      "ollama_metrics": {
+        "prompt_eval_count": 930,
+        "eval_count": 181,
+        "total_duration": 9056040700,
+        "eval_duration": 8748267000,
+        "load_duration": 136812400
+      },
+      "output_sha256": "a38040a2ee6a08182b93d5c59d96e887b6dbba170e562dc3676872fb5741675d"
+    },
+    {
+      "task_id": "python-merge-intervals",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "failed",
+          "detail": "ValueError: Function mutated input arguments"
+        }
+      ],
+      "wall_seconds": 8.765,
+      "ollama_metrics": {
+        "prompt_eval_count": 930,
+        "eval_count": 172,
+        "total_duration": 8650026900,
+        "eval_duration": 8451075000,
+        "load_duration": 137421000
+      },
+      "output_sha256": "2d3d0c24ccc92acff7b4449c094f127083992ee1db25ba1e700d6bc6e345acde"
+    },
+    {
+      "task_id": "python-merge-intervals",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "failed",
+          "detail": "ValueError: Function mutated input arguments"
+        }
+      ],
+      "wall_seconds": 10.36,
+      "ollama_metrics": {
+        "prompt_eval_count": 930,
+        "eval_count": 187,
+        "total_duration": 10135642000,
+        "eval_duration": 9809145000,
+        "load_duration": 241504000
+      },
+      "output_sha256": "4b2f9784ffd9f68126105b55a6cedaf092a2685b8a1711d3cc5c960a0839867a"
+    },
+    {
+      "task_id": "python-fix-clamp",
+      "split": "development",
+      "language": "python",
+      "operation": "fix_bug",
+      "model": "qwen2.5:7b",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 7.422,
+      "ollama_metrics": {
+        "prompt_eval_count": 945,
+        "eval_count": 122,
+        "total_duration": 7235585700,
+        "eval_duration": 6595740000,
+        "load_duration": 318929900
+      },
+      "output_sha256": "e1f0234b206d12c8cc179ad10ab6f50536885d6764551c03362f56d8cdf5dfa1"
+    },
+    {
+      "task_id": "python-fix-clamp",
+      "split": "development",
+      "language": "python",
+      "operation": "fix_bug",
+      "model": "qwen2.5:7b",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 5.375,
+      "ollama_metrics": {
+        "prompt_eval_count": 945,
+        "eval_count": 99,
+        "total_duration": 5247547600,
+        "eval_duration": 4975775000,
+        "load_duration": 186286600
+      },
+      "output_sha256": "19f71ff373ad7eaf1b6542db5c8f392f9508c585d1eb572e0503e71f2815fe1c"
+    },
+    {
+      "task_id": "python-fix-clamp",
+      "split": "development",
+      "language": "python",
+      "operation": "fix_bug",
+      "model": "qwen2.5:7b",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 4.75,
+      "ollama_metrics": {
+        "prompt_eval_count": 945,
+        "eval_count": 89,
+        "total_duration": 4625162300,
+        "eval_duration": 4408462000,
+        "load_duration": 154707400
+      },
+      "output_sha256": "74ea1345833b54503c64e1af41177f9738cac0abacab7e32d2b834b7d22c5e1a"
+    },
+    {
+      "task_id": "vba-copy-values",
+      "split": "development",
+      "language": "vba",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "vba_static",
+          "status": "passed",
+          "detail": "VBA static structure passed; Excel compile/runtime unavailable"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "runtime",
+          "status": "skipped",
+          "detail": "Excel/VBA COM runtime/compiler not available in the isolated benchmark"
+        }
+      ],
+      "wall_seconds": 8.015,
+      "ollama_metrics": {
+        "prompt_eval_count": 928,
+        "eval_count": 151,
+        "total_duration": 8006148900,
+        "eval_duration": 7667650000,
+        "load_duration": 156793000
+      },
+      "output_sha256": "c8f8d0aec19aceae0c17f5ee00e60563bb79df101110d1a72a4d27a10afbd78b"
+    },
+    {
+      "task_id": "vba-copy-values",
+      "split": "development",
+      "language": "vba",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "vba_static",
+          "status": "passed",
+          "detail": "VBA static structure passed; Excel compile/runtime unavailable"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "runtime",
+          "status": "skipped",
+          "detail": "Excel/VBA COM runtime/compiler not available in the isolated benchmark"
+        }
+      ],
+      "wall_seconds": 8.328,
+      "ollama_metrics": {
+        "prompt_eval_count": 928,
+        "eval_count": 159,
+        "total_duration": 8316684700,
+        "eval_duration": 8048659000,
+        "load_duration": 193786800
+      },
+      "output_sha256": "e2fd90d3fd9f725125955f56a168a5ba7087ffb3795dc16af33297852d82abf0"
+    },
+    {
+      "task_id": "vba-copy-values",
+      "split": "development",
+      "language": "vba",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "vba_static",
+          "status": "passed",
+          "detail": "VBA static structure passed; Excel compile/runtime unavailable"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "runtime",
+          "status": "skipped",
+          "detail": "Excel/VBA COM runtime/compiler not available in the isolated benchmark"
+        }
+      ],
+      "wall_seconds": 9.0,
+      "ollama_metrics": {
+        "prompt_eval_count": 928,
+        "eval_count": 173,
+        "total_duration": 8996262300,
+        "eval_duration": 8730308000,
+        "load_duration": 196571600
+      },
+      "output_sha256": "8713e509830782c668b5b92402d5a710febf7b02d1a612229c7c0e2a8ba75a7f"
+    },
+    {
+      "task_id": "vbnet-double",
+      "split": "development",
+      "language": "visual_basic_dotnet",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "vbnet_compile",
+          "status": "skipped",
+          "detail": ".NET SDK unavailable"
+        }
+      ],
+      "wall_seconds": 9.625,
+      "ollama_metrics": {
+        "prompt_eval_count": 914,
+        "eval_count": 156,
+        "total_duration": 9437904100,
+        "eval_duration": 9053671000,
+        "load_duration": 180210300
+      },
+      "output_sha256": "671caab8b38161d1104d491462af2a4fbcd20c69caef302027d6c1882ba2ef79"
+    },
+    {
+      "task_id": "vbnet-double",
+      "split": "development",
+      "language": "visual_basic_dotnet",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "vbnet_compile",
+          "status": "skipped",
+          "detail": ".NET SDK unavailable"
+        }
+      ],
+      "wall_seconds": 11.844,
+      "ollama_metrics": {
+        "prompt_eval_count": 914,
+        "eval_count": 151,
+        "total_duration": 11668222500,
+        "eval_duration": 10362334000,
+        "load_duration": 906528800
+      },
+      "output_sha256": "615de9b6435066df09590120804de6fdfad1ae2b7028b4697388081eb7a9a723"
+    },
+    {
+      "task_id": "vbnet-double",
+      "split": "development",
+      "language": "visual_basic_dotnet",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "vbnet_compile",
+          "status": "skipped",
+          "detail": ".NET SDK unavailable"
+        }
+      ],
+      "wall_seconds": 8.922,
+      "ollama_metrics": {
+        "prompt_eval_count": 914,
+        "eval_count": 137,
+        "total_duration": 8793527800,
+        "eval_duration": 8097736000,
+        "load_duration": 476164900
+      },
+      "output_sha256": "f0d621c99a8d934d694e970feea748bf4c455501ae5183bb3a4e38c031cc76db"
+    },
+    {
+      "task_id": "office-script-copy",
+      "split": "development",
+      "language": "office_scripts",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "typescript_compile",
+          "status": "skipped",
+          "detail": "ExcelScript type declarations unavailable in isolated benchmark"
+        }
+      ],
+      "wall_seconds": 15.343,
+      "ollama_metrics": {
+        "prompt_eval_count": 927,
+        "eval_count": 244,
+        "total_duration": 15242378900,
+        "eval_duration": 14488902000,
+        "load_duration": 430220000
+      },
+      "output_sha256": "c0e3fb4b4cbacf8c2c3b3f427cb01c7c21a398e423f235046e2878ea43f55ca6"
+    },
+    {
+      "task_id": "office-script-copy",
+      "split": "development",
+      "language": "office_scripts",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "typescript_compile",
+          "status": "skipped",
+          "detail": "ExcelScript type declarations unavailable in isolated benchmark"
+        }
+      ],
+      "wall_seconds": 14.719,
+      "ollama_metrics": {
+        "prompt_eval_count": 927,
+        "eval_count": 224,
+        "total_duration": 14507737500,
+        "eval_duration": 13802806000,
+        "load_duration": 407981600
+      },
+      "output_sha256": "8be447e8f5117e4e4275b767ee2f63c6d89cd293596979bb78bf172b8cd27b36"
+    },
+    {
+      "task_id": "office-script-copy",
+      "split": "development",
+      "language": "office_scripts",
+      "operation": "generate",
+      "model": "qwen2.5:7b",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "typescript_compile",
+          "status": "skipped",
+          "detail": "ExcelScript type declarations unavailable in isolated benchmark"
+        }
+      ],
+      "wall_seconds": 17.328,
+      "ollama_metrics": {
+        "prompt_eval_count": 927,
+        "eval_count": 238,
+        "total_duration": 17025073600,
+        "eval_duration": 15976463000,
+        "load_duration": 502150800
+      },
+      "output_sha256": "91176e88cc5632c5e50f69a5fc85c7fa940c36c1b17189853abb7b11eeca37ef"
+    },
+    {
+      "task_id": "python-edit-join",
+      "split": "holdout",
+      "language": "python",
+      "operation": "edit",
+      "model": "qwen2.5:7b",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 5.11,
+      "ollama_metrics": {
+        "prompt_eval_count": 937,
+        "eval_count": 27,
+        "total_duration": 4600281800,
+        "eval_duration": 1922873000,
+        "load_duration": 1758277400
+      },
+      "output_sha256": "99643d7012e49a782c75fd2a61e4b826663551e9f11c697849d099494a6b4713"
+    },
+    {
+      "task_id": "python-edit-join",
+      "split": "holdout",
+      "language": "python",
+      "operation": "edit",
+      "model": "qwen2.5:7b",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 2.671,
+      "ollama_metrics": {
+        "prompt_eval_count": 937,
+        "eval_count": 27,
+        "total_duration": 2337107800,
+        "eval_duration": 1616470000,
+        "load_duration": 595564200
+      },
+      "output_sha256": "99643d7012e49a782c75fd2a61e4b826663551e9f11c697849d099494a6b4713"
+    },
+    {
+      "task_id": "python-edit-join",
+      "split": "holdout",
+      "language": "python",
+      "operation": "edit",
+      "model": "qwen2.5:7b",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 2.375,
+      "ollama_metrics": {
+        "prompt_eval_count": 937,
+        "eval_count": 27,
+        "total_duration": 2100983300,
+        "eval_duration": 1625349000,
+        "load_duration": 372779000
+      },
+      "output_sha256": "99643d7012e49a782c75fd2a61e4b826663551e9f11c697849d099494a6b4713"
+    },
+    {
+      "task_id": "json-exact-format",
+      "split": "holdout",
+      "language": "json",
+      "operation": "format",
+      "model": "qwen2.5:7b",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "json_schema",
+          "status": "passed",
+          "detail": "JSON format valid"
+        },
+        {
+          "type": "json_equals",
+          "status": "passed",
+          "detail": "JSON value matched"
+        }
+      ],
+      "wall_seconds": 2.11,
+      "ollama_metrics": {
+        "prompt_eval_count": 897,
+        "eval_count": 17,
+        "total_duration": 2103392100,
+        "eval_duration": 1328746000,
+        "load_duration": 520121100
+      },
+      "output_sha256": "68fde79f55d3e11e8fd01be3b062776caf01dac3f076305df80085f184769de1"
+    },
+    {
+      "task_id": "json-exact-format",
+      "split": "holdout",
+      "language": "json",
+      "operation": "format",
+      "model": "qwen2.5:7b",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "json_schema",
+          "status": "passed",
+          "detail": "JSON format valid"
+        },
+        {
+          "type": "json_equals",
+          "status": "passed",
+          "detail": "JSON value matched"
+        }
+      ],
+      "wall_seconds": 2.125,
+      "ollama_metrics": {
+        "prompt_eval_count": 897,
+        "eval_count": 17,
+        "total_duration": 2112806200,
+        "eval_duration": 1113749000,
+        "load_duration": 824456300
+      },
+      "output_sha256": "68fde79f55d3e11e8fd01be3b062776caf01dac3f076305df80085f184769de1"
+    },
+    {
+      "task_id": "json-exact-format",
+      "split": "holdout",
+      "language": "json",
+      "operation": "format",
+      "model": "qwen2.5:7b",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "json_schema",
+          "status": "passed",
+          "detail": "JSON format valid"
+        },
+        {
+          "type": "json_equals",
+          "status": "passed",
+          "detail": "JSON value matched"
+        }
+      ],
+      "wall_seconds": 2.953,
+      "ollama_metrics": {
+        "prompt_eval_count": 897,
+        "eval_count": 17,
+        "total_duration": 2931358000,
+        "eval_duration": 1083516000,
+        "load_duration": 1592631500
+      },
+      "output_sha256": "68fde79f55d3e11e8fd01be3b062776caf01dac3f076305df80085f184769de1"
+    },
+    {
+      "task_id": "python-count-even",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "code_only",
+          "status": "failed",
+          "detail": "Explanatory text outside code"
+        },
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 11.531,
+      "ollama_metrics": {
+        "prompt_eval_count": 904,
+        "eval_count": 115,
+        "total_duration": 11191807400,
+        "eval_duration": 7279783000,
+        "load_duration": 1980055100
+      },
+      "output_sha256": "b66970245aa73e4b1f3de7ddeecccb130a16b2b1a284ad5b5161b6d962e4fa1c"
+    },
+    {
+      "task_id": "python-count-even",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "code_only",
+          "status": "failed",
+          "detail": "Explanatory text outside code"
+        },
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 6.641,
+      "ollama_metrics": {
+        "prompt_eval_count": 904,
+        "eval_count": 109,
+        "total_duration": 6437075400,
+        "eval_duration": 5967983000,
+        "load_duration": 342971100
+      },
+      "output_sha256": "3c8606f76e6d3e5b6fff591859b6773942f485cdf6eb0eb0167d07267cb1eeff"
+    },
+    {
+      "task_id": "python-count-even",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "code_only",
+          "status": "failed",
+          "detail": "Explanatory text outside code"
+        },
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 6.641,
+      "ollama_metrics": {
+        "prompt_eval_count": 904,
+        "eval_count": 109,
+        "total_duration": 6467422300,
+        "eval_duration": 6111047000,
+        "load_duration": 221685100
+      },
+      "output_sha256": "dcc9ce22d3d4217c50c8476e0e058df26daa7c53573f8869a84a872684ebe7a2"
+    },
+    {
+      "task_id": "python-merge-intervals",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "failed",
+          "detail": "ValueError: Function mutated input arguments"
+        }
+      ],
+      "wall_seconds": 10.797,
+      "ollama_metrics": {
+        "prompt_eval_count": 930,
+        "eval_count": 181,
+        "total_duration": 10562525600,
+        "eval_duration": 10062697000,
+        "load_duration": 245892400
+      },
+      "output_sha256": "a38040a2ee6a08182b93d5c59d96e887b6dbba170e562dc3676872fb5741675d"
+    },
+    {
+      "task_id": "python-merge-intervals",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "failed",
+          "detail": "ValueError: Function mutated input arguments"
+        }
+      ],
+      "wall_seconds": 9.375,
+      "ollama_metrics": {
+        "prompt_eval_count": 930,
+        "eval_count": 172,
+        "total_duration": 9226156200,
+        "eval_duration": 8806419000,
+        "load_duration": 317602000
+      },
+      "output_sha256": "2d3d0c24ccc92acff7b4449c094f127083992ee1db25ba1e700d6bc6e345acde"
+    },
+    {
+      "task_id": "python-merge-intervals",
+      "split": "development",
+      "language": "python",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "failed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "failed",
+          "detail": "ValueError: Function mutated input arguments"
+        }
+      ],
+      "wall_seconds": 9.765,
+      "ollama_metrics": {
+        "prompt_eval_count": 930,
+        "eval_count": 187,
+        "total_duration": 9637738400,
+        "eval_duration": 9399504000,
+        "load_duration": 177162600
+      },
+      "output_sha256": "4b2f9784ffd9f68126105b55a6cedaf092a2685b8a1711d3cc5c960a0839867a"
+    },
+    {
+      "task_id": "python-fix-clamp",
+      "split": "development",
+      "language": "python",
+      "operation": "fix_bug",
+      "model": "knightagent-automation:latest",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 7.172,
+      "ollama_metrics": {
+        "prompt_eval_count": 945,
+        "eval_count": 122,
+        "total_duration": 6924970300,
+        "eval_duration": 6521490000,
+        "load_duration": 179838100
+      },
+      "output_sha256": "e1f0234b206d12c8cc179ad10ab6f50536885d6764551c03362f56d8cdf5dfa1"
+    },
+    {
+      "task_id": "python-fix-clamp",
+      "split": "development",
+      "language": "python",
+      "operation": "fix_bug",
+      "model": "knightagent-automation:latest",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 5.594,
+      "ollama_metrics": {
+        "prompt_eval_count": 945,
+        "eval_count": 99,
+        "total_duration": 5429618000,
+        "eval_duration": 5046200000,
+        "load_duration": 249251100
+      },
+      "output_sha256": "19f71ff373ad7eaf1b6542db5c8f392f9508c585d1eb572e0503e71f2815fe1c"
+    },
+    {
+      "task_id": "python-fix-clamp",
+      "split": "development",
+      "language": "python",
+      "operation": "fix_bug",
+      "model": "knightagent-automation:latest",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 4.703,
+      "ollama_metrics": {
+        "prompt_eval_count": 945,
+        "eval_count": 89,
+        "total_duration": 4559072800,
+        "eval_duration": 4337537000,
+        "load_duration": 163214900
+      },
+      "output_sha256": "74ea1345833b54503c64e1af41177f9738cac0abacab7e32d2b834b7d22c5e1a"
+    },
+    {
+      "task_id": "vba-copy-values",
+      "split": "development",
+      "language": "vba",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "vba_static",
+          "status": "passed",
+          "detail": "VBA static structure passed; Excel compile/runtime unavailable"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "runtime",
+          "status": "skipped",
+          "detail": "Excel/VBA COM runtime/compiler not available in the isolated benchmark"
+        }
+      ],
+      "wall_seconds": 7.656,
+      "ollama_metrics": {
+        "prompt_eval_count": 928,
+        "eval_count": 151,
+        "total_duration": 7653321600,
+        "eval_duration": 7302347000,
+        "load_duration": 176714800
+      },
+      "output_sha256": "c8f8d0aec19aceae0c17f5ee00e60563bb79df101110d1a72a4d27a10afbd78b"
+    },
+    {
+      "task_id": "vba-copy-values",
+      "split": "development",
+      "language": "vba",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "vba_static",
+          "status": "passed",
+          "detail": "VBA static structure passed; Excel compile/runtime unavailable"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "runtime",
+          "status": "skipped",
+          "detail": "Excel/VBA COM runtime/compiler not available in the isolated benchmark"
+        }
+      ],
+      "wall_seconds": 8.11,
+      "ollama_metrics": {
+        "prompt_eval_count": 928,
+        "eval_count": 159,
+        "total_duration": 8100492800,
+        "eval_duration": 7802258000,
+        "load_duration": 234716700
+      },
+      "output_sha256": "e2fd90d3fd9f725125955f56a168a5ba7087ffb3795dc16af33297852d82abf0"
+    },
+    {
+      "task_id": "vba-copy-values",
+      "split": "development",
+      "language": "vba",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "vba_static",
+          "status": "passed",
+          "detail": "VBA static structure passed; Excel compile/runtime unavailable"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "runtime",
+          "status": "skipped",
+          "detail": "Excel/VBA COM runtime/compiler not available in the isolated benchmark"
+        }
+      ],
+      "wall_seconds": 9.14,
+      "ollama_metrics": {
+        "prompt_eval_count": 928,
+        "eval_count": 173,
+        "total_duration": 9131963400,
+        "eval_duration": 8777663000,
+        "load_duration": 267760400
+      },
+      "output_sha256": "8713e509830782c668b5b92402d5a710febf7b02d1a612229c7c0e2a8ba75a7f"
+    },
+    {
+      "task_id": "vbnet-double",
+      "split": "development",
+      "language": "visual_basic_dotnet",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "vbnet_compile",
+          "status": "skipped",
+          "detail": ".NET SDK unavailable"
+        }
+      ],
+      "wall_seconds": 8.61,
+      "ollama_metrics": {
+        "prompt_eval_count": 914,
+        "eval_count": 156,
+        "total_duration": 8575943200,
+        "eval_duration": 8166522000,
+        "load_duration": 233377600
+      },
+      "output_sha256": "671caab8b38161d1104d491462af2a4fbcd20c69caef302027d6c1882ba2ef79"
+    },
+    {
+      "task_id": "vbnet-double",
+      "split": "development",
+      "language": "visual_basic_dotnet",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "vbnet_compile",
+          "status": "skipped",
+          "detail": ".NET SDK unavailable"
+        }
+      ],
+      "wall_seconds": 8.0,
+      "ollama_metrics": {
+        "prompt_eval_count": 914,
+        "eval_count": 151,
+        "total_duration": 7961937100,
+        "eval_duration": 7621219000,
+        "load_duration": 264382300
+      },
+      "output_sha256": "615de9b6435066df09590120804de6fdfad1ae2b7028b4697388081eb7a9a723"
+    },
+    {
+      "task_id": "vbnet-double",
+      "split": "development",
+      "language": "visual_basic_dotnet",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "vbnet_compile",
+          "status": "skipped",
+          "detail": ".NET SDK unavailable"
+        }
+      ],
+      "wall_seconds": 7.453,
+      "ollama_metrics": {
+        "prompt_eval_count": 914,
+        "eval_count": 137,
+        "total_duration": 7410129400,
+        "eval_duration": 7115516000,
+        "load_duration": 228689500
+      },
+      "output_sha256": "f0d621c99a8d934d694e970feea748bf4c455501ae5183bb3a4e38c031cc76db"
+    },
+    {
+      "task_id": "office-script-copy",
+      "split": "development",
+      "language": "office_scripts",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "typescript_compile",
+          "status": "skipped",
+          "detail": "ExcelScript type declarations unavailable in isolated benchmark"
+        }
+      ],
+      "wall_seconds": 13.015,
+      "ollama_metrics": {
+        "prompt_eval_count": 927,
+        "eval_count": 244,
+        "total_duration": 12988402800,
+        "eval_duration": 12569884000,
+        "load_duration": 249272500
+      },
+      "output_sha256": "c0e3fb4b4cbacf8c2c3b3f427cb01c7c21a398e423f235046e2878ea43f55ca6"
+    },
+    {
+      "task_id": "office-script-copy",
+      "split": "development",
+      "language": "office_scripts",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "typescript_compile",
+          "status": "skipped",
+          "detail": "ExcelScript type declarations unavailable in isolated benchmark"
+        }
+      ],
+      "wall_seconds": 11.625,
+      "ollama_metrics": {
+        "prompt_eval_count": 927,
+        "eval_count": 224,
+        "total_duration": 11615095100,
+        "eval_duration": 11269847000,
+        "load_duration": 267965700
+      },
+      "output_sha256": "8be447e8f5117e4e4275b767ee2f63c6d89cd293596979bb78bf172b8cd27b36"
+    },
+    {
+      "task_id": "office-script-copy",
+      "split": "development",
+      "language": "office_scripts",
+      "operation": "generate",
+      "model": "knightagent-automation:latest",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "skipped",
+      "error": null,
+      "checks": [
+        {
+          "type": "text_contains",
+          "status": "passed",
+          "detail": "Required patterns found"
+        },
+        {
+          "type": "text_not_contains",
+          "status": "passed",
+          "detail": "Forbidden patterns absent"
+        },
+        {
+          "type": "typescript_compile",
+          "status": "skipped",
+          "detail": "ExcelScript type declarations unavailable in isolated benchmark"
+        }
+      ],
+      "wall_seconds": 12.141,
+      "ollama_metrics": {
+        "prompt_eval_count": 927,
+        "eval_count": 238,
+        "total_duration": 12108713900,
+        "eval_duration": 11795028000,
+        "load_duration": 248222200
+      },
+      "output_sha256": "91176e88cc5632c5e50f69a5fc85c7fa940c36c1b17189853abb7b11eeca37ef"
+    },
+    {
+      "task_id": "python-edit-join",
+      "split": "holdout",
+      "language": "python",
+      "operation": "edit",
+      "model": "knightagent-automation:latest",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 2.062,
+      "ollama_metrics": {
+        "prompt_eval_count": 937,
+        "eval_count": 27,
+        "total_duration": 1795523500,
+        "eval_duration": 1334444000,
+        "load_duration": 250685900
+      },
+      "output_sha256": "99643d7012e49a782c75fd2a61e4b826663551e9f11c697849d099494a6b4713"
+    },
+    {
+      "task_id": "python-edit-join",
+      "split": "holdout",
+      "language": "python",
+      "operation": "edit",
+      "model": "knightagent-automation:latest",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 1.704,
+      "ollama_metrics": {
+        "prompt_eval_count": 937,
+        "eval_count": 27,
+        "total_duration": 1530569400,
+        "eval_duration": 1265273000,
+        "load_duration": 182321700
+      },
+      "output_sha256": "99643d7012e49a782c75fd2a61e4b826663551e9f11c697849d099494a6b4713"
+    },
+    {
+      "task_id": "python-edit-join",
+      "split": "holdout",
+      "language": "python",
+      "operation": "edit",
+      "model": "knightagent-automation:latest",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "python_syntax",
+          "status": "passed",
+          "detail": "Python syntax valid"
+        },
+        {
+          "type": "python_function",
+          "status": "passed",
+          "detail": "All function assertions passed"
+        }
+      ],
+      "wall_seconds": 1.718,
+      "ollama_metrics": {
+        "prompt_eval_count": 937,
+        "eval_count": 27,
+        "total_duration": 1547733400,
+        "eval_duration": 1314956000,
+        "load_duration": 177132600
+      },
+      "output_sha256": "99643d7012e49a782c75fd2a61e4b826663551e9f11c697849d099494a6b4713"
+    },
+    {
+      "task_id": "json-exact-format",
+      "split": "holdout",
+      "language": "json",
+      "operation": "format",
+      "model": "knightagent-automation:latest",
+      "repeat": 1,
+      "seed": 20261003,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "json_schema",
+          "status": "passed",
+          "detail": "JSON format valid"
+        },
+        {
+          "type": "json_equals",
+          "status": "passed",
+          "detail": "JSON value matched"
+        }
+      ],
+      "wall_seconds": 1.125,
+      "ollama_metrics": {
+        "prompt_eval_count": 897,
+        "eval_count": 17,
+        "total_duration": 1116279100,
+        "eval_duration": 793887000,
+        "load_duration": 173877300
+      },
+      "output_sha256": "68fde79f55d3e11e8fd01be3b062776caf01dac3f076305df80085f184769de1"
+    },
+    {
+      "task_id": "json-exact-format",
+      "split": "holdout",
+      "language": "json",
+      "operation": "format",
+      "model": "knightagent-automation:latest",
+      "repeat": 2,
+      "seed": 20261004,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "json_schema",
+          "status": "passed",
+          "detail": "JSON format valid"
+        },
+        {
+          "type": "json_equals",
+          "status": "passed",
+          "detail": "JSON value matched"
+        }
+      ],
+      "wall_seconds": 1.078,
+      "ollama_metrics": {
+        "prompt_eval_count": 897,
+        "eval_count": 17,
+        "total_duration": 1087809100,
+        "eval_duration": 797068000,
+        "load_duration": 227242500
+      },
+      "output_sha256": "68fde79f55d3e11e8fd01be3b062776caf01dac3f076305df80085f184769de1"
+    },
+    {
+      "task_id": "json-exact-format",
+      "split": "holdout",
+      "language": "json",
+      "operation": "format",
+      "model": "knightagent-automation:latest",
+      "repeat": 3,
+      "seed": 20261005,
+      "status": "passed",
+      "error": null,
+      "checks": [
+        {
+          "type": "json_schema",
+          "status": "passed",
+          "detail": "JSON format valid"
+        },
+        {
+          "type": "json_equals",
+          "status": "passed",
+          "detail": "JSON value matched"
+        }
+      ],
+      "wall_seconds": 1.11,
+      "ollama_metrics": {
+        "prompt_eval_count": 897,
+        "eval_count": 17,
+        "total_duration": 1098404100,
+        "eval_duration": 806415000,
+        "load_duration": 233503300
+      },
+      "output_sha256": "68fde79f55d3e11e8fd01be3b062776caf01dac3f076305df80085f184769de1"
+    }
+  ],
+  "summary": [
+    {
+      "model": "qwen2.5:7b",
+      "split": "development",
+      "task_id": "python-count-even",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 0,
+      "skipped": 0,
+      "pass_rate": 0.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 5.979333333333333,
+      "wall_variance_population": 0.40177088888888896,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2712,
+        "eval_count": 333,
+        "total_duration": 17547226300,
+        "eval_duration": 15886114000,
+        "load_duration": 350812300
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 904,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 111,
+          "variance_population": 8
+        },
+        "total_duration": {
+          "mean": 5849075433.333333,
+          "variance_population": 3.9861916197848224e+17
+        },
+        "eval_duration": {
+          "mean": 5295371333.333333,
+          "variance_population": 1.4400011505555556e+16
+        },
+        "load_duration": {
+          "mean": 116937433.33333333,
+          "variance_population": 22181552168888.89
+        }
+      }
+    },
+    {
+      "model": "qwen2.5:7b",
+      "split": "development",
+      "task_id": "python-merge-intervals",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 0,
+      "skipped": 0,
+      "pass_rate": 0.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 9.427,
+      "wall_variance_population": 0.46072466666666595,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2790,
+        "eval_count": 540,
+        "total_duration": 27841709600,
+        "eval_duration": 27008487000,
+        "load_duration": 515737400
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 930,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 180,
+          "variance_population": 38
+        },
+        "total_duration": {
+          "mean": 9280569866.666666,
+          "variance_population": 3.9304871090001555e+17
+        },
+        "eval_duration": {
+          "mean": 9002829000,
+          "variance_population": 339793260072000000
+        },
+        "load_duration": {
+          "mean": 171912466.66666666,
+          "variance_population": 2421552488168889.0
+        }
+      }
+    },
+    {
+      "model": "qwen2.5:7b",
+      "split": "development",
+      "task_id": "python-fix-clamp",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 3,
+      "skipped": 0,
+      "pass_rate": 1.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 5.849,
+      "wall_variance_population": 1.3022686666666663,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2835,
+        "eval_count": 310,
+        "total_duration": 17108295600,
+        "eval_duration": 15979977000,
+        "load_duration": 659923900
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 945,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 103.33333333333333,
+          "variance_population": 190.88888888888889
+        },
+        "total_duration": {
+          "mean": 5702765200,
+          "variance_population": 1.2393299195528067e+18
+        },
+        "eval_duration": {
+          "mean": 5326659000,
+          "variance_population": 8.589239656086666e+17
+        },
+        "load_duration": {
+          "mean": 219974633.33333334,
+          "variance_population": 5062280045975556.0
+        }
+      }
+    },
+    {
+      "model": "qwen2.5:7b",
+      "split": "development",
+      "task_id": "vba-copy-values",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 3,
+      "skipped": 0,
+      "pass_rate": 1.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 8.447666666666667,
+      "wall_variance_population": 0.1688642222222221,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2784,
+        "eval_count": 483,
+        "total_duration": 25319095900,
+        "eval_duration": 24446617000,
+        "load_duration": 547151400
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 928,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 161,
+          "variance_population": 82.66666666666667
+        },
+        "total_duration": {
+          "mean": 8439698633.333333,
+          "variance_population": 1.709536380403289e+17
+        },
+        "eval_duration": {
+          "mean": 8148872333.333333,
+          "variance_population": 1.9322836024955555e+17
+        },
+        "load_duration": {
+          "mean": 182383800,
+          "variance_population": 328737040826666.7
+        }
+      }
+    },
+    {
+      "model": "qwen2.5:7b",
+      "split": "development",
+      "task_id": "vbnet-double",
+      "repetitions": 3,
+      "evaluated": 0,
+      "passed": 0,
+      "skipped": 3,
+      "pass_rate": null,
+      "pass_variance_population": null,
+      "mean_wall_seconds": 10.130333333333333,
+      "wall_variance_population": 1.5506948888888878,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2742,
+        "eval_count": 444,
+        "total_duration": 29899654400,
+        "eval_duration": 27513741000,
+        "load_duration": 1562904000
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 914,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 148,
+          "variance_population": 64.66666666666667
+        },
+        "total_duration": {
+          "mean": 9966551466.666666,
+          "variance_population": 1.5170456221764823e+18
+        },
+        "eval_duration": {
+          "mean": 9171247000,
+          "variance_population": 861646074822000000
+        },
+        "load_duration": {
+          "mean": 520968000,
+          "variance_population": 8.892675279184667e+16
+        }
+      }
+    },
+    {
+      "model": "qwen2.5:7b",
+      "split": "development",
+      "task_id": "office-script-copy",
+      "repetitions": 3,
+      "evaluated": 0,
+      "passed": 0,
+      "skipped": 3,
+      "pass_rate": null,
+      "pass_variance_population": null,
+      "mean_wall_seconds": 15.796666666666667,
+      "wall_variance_population": 1.2373868888888888,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2781,
+        "eval_count": 706,
+        "total_duration": 46775190000,
+        "eval_duration": 44268171000,
+        "load_duration": 1340352400
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 927,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 235.33333333333334,
+          "variance_population": 70.22222222222223
+        },
+        "total_duration": {
+          "mean": 15591730000,
+          "variance_population": 1.1171866022628067e+18
+        },
+        "eval_duration": {
+          "mean": 14756057000,
+          "variance_population": 8.231500226206666e+17
+        },
+        "load_duration": {
+          "mean": 446784133.3333333,
+          "variance_population": 1615158294648889.0
+        }
+      }
+    },
+    {
+      "model": "qwen2.5:7b",
+      "split": "holdout",
+      "task_id": "python-edit-join",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 3,
+      "skipped": 0,
+      "pass_rate": 1.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 3.3853333333333335,
+      "wall_variance_population": 1.5018402222222227,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2811,
+        "eval_count": 81,
+        "total_duration": 9038372900,
+        "eval_duration": 5164692000,
+        "load_duration": 2726620600
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 937,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 27,
+          "variance_population": 0
+        },
+        "total_duration": {
+          "mean": 3012790966.6666665,
+          "variance_population": 1.2693560362087222e+18
+        },
+        "eval_duration": {
+          "mean": 1721564000,
+          "variance_population": 2.0275796180666668e+16
+        },
+        "load_duration": {
+          "mean": 908873533.3333334,
+          "variance_population": 3.690156719106489e+17
+        }
+      }
+    },
+    {
+      "model": "qwen2.5:7b",
+      "split": "holdout",
+      "task_id": "json-exact-format",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 3,
+      "skipped": 0,
+      "pass_rate": 1.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 2.396,
+      "wall_variance_population": 0.15516199999999997,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2691,
+        "eval_count": 51,
+        "total_duration": 7147556300,
+        "eval_duration": 3526011000,
+        "load_duration": 2937208900
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 897,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 17,
+          "variance_population": 0
+        },
+        "total_duration": {
+          "mean": 2382518766.6666665,
+          "variance_population": 1.506270229027622e+17
+        },
+        "eval_duration": {
+          "mean": 1175337000,
+          "variance_population": 1.1919499688666666e+16
+        },
+        "load_duration": {
+          "mean": 979069633.3333334,
+          "variance_population": 2.036657344402489e+17
+        }
+      }
+    },
+    {
+      "model": "knightagent-automation:latest",
+      "split": "development",
+      "task_id": "python-count-even",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 0,
+      "skipped": 0,
+      "pass_rate": 0.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 8.271,
+      "wall_variance_population": 5.313800000000001,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2712,
+        "eval_count": 333,
+        "total_duration": 24096305100,
+        "eval_duration": 19358813000,
+        "load_duration": 2544711300
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 904,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 111,
+          "variance_population": 8
+        },
+        "total_duration": {
+          "mean": 8032101700,
+          "variance_population": 4.992023544362846e+18
+        },
+        "eval_duration": {
+          "mean": 6452937666.666667,
+          "variance_population": 3.452478206435556e+17
+        },
+        "load_duration": {
+          "mean": 848237100,
+          "variance_population": 6.429577081946666e+17
+        }
+      }
+    },
+    {
+      "model": "knightagent-automation:latest",
+      "split": "development",
+      "task_id": "python-merge-intervals",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 0,
+      "skipped": 0,
+      "pass_rate": 0.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 9.979000000000001,
+      "wall_variance_population": 0.35991200000000023,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2790,
+        "eval_count": 540,
+        "total_duration": 29426420200,
+        "eval_duration": 28268620000,
+        "load_duration": 740657000
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 930,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 180,
+          "variance_population": 38
+        },
+        "total_duration": {
+          "mean": 9808806733.333334,
+          "variance_population": 3.122793828774489e+17
+        },
+        "eval_duration": {
+          "mean": 9422873333.333334,
+          "variance_population": 2.633121317508889e+17
+        },
+        "load_duration": {
+          "mean": 246885666.66666666,
+          "variance_population": 3287697468062222.0
+        }
+      }
+    },
+    {
+      "model": "knightagent-automation:latest",
+      "split": "development",
+      "task_id": "python-fix-clamp",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 3,
+      "skipped": 0,
+      "pass_rate": 1.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 5.823,
+      "wall_variance_population": 1.0422139999999995,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2835,
+        "eval_count": 310,
+        "total_duration": 16913661100,
+        "eval_duration": 15905227000,
+        "load_duration": 592304100
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 945,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 103.33333333333333,
+          "variance_population": 190.88888888888889
+        },
+        "total_duration": {
+          "mean": 5637887033.333333,
+          "variance_population": 9.545998252071756e+17
+        },
+        "eval_duration": {
+          "mean": 5301742333.333333,
+          "variance_population": 8.275927264308888e+17
+        },
+        "load_duration": {
+          "mean": 197434700,
+          "variance_population": 1388524784186666.8
+        }
+      }
+    },
+    {
+      "model": "knightagent-automation:latest",
+      "split": "development",
+      "task_id": "vba-copy-values",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 3,
+      "skipped": 0,
+      "pass_rate": 1.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 8.302,
+      "wall_variance_population": 0.3854746666666672,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2784,
+        "eval_count": 483,
+        "total_duration": 24885777800,
+        "eval_duration": 23882268000,
+        "load_duration": 679191900
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 928,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 161,
+          "variance_population": 82.66666666666667
+        },
+        "total_duration": {
+          "mean": 8295259266.666667,
+          "variance_population": 3.833639170534489e+17
+        },
+        "eval_duration": {
+          "mean": 7960756000,
+          "variance_population": 375320357978000000
+        },
+        "load_duration": {
+          "mean": 226397300,
+          "variance_population": 1416156421406666.8
+        }
+      }
+    },
+    {
+      "model": "knightagent-automation:latest",
+      "split": "development",
+      "task_id": "vbnet-double",
+      "repetitions": 3,
+      "evaluated": 0,
+      "passed": 0,
+      "skipped": 3,
+      "pass_rate": null,
+      "pass_variance_population": null,
+      "mean_wall_seconds": 8.021,
+      "wall_variance_population": 0.22332866666666634,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2742,
+        "eval_count": 444,
+        "total_duration": 23948009700,
+        "eval_duration": 22903257000,
+        "load_duration": 726449400
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 914,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 148,
+          "variance_population": 64.66666666666667
+        },
+        "total_duration": {
+          "mean": 7982669900,
+          "variance_population": 226735227209660000
+        },
+        "eval_duration": {
+          "mean": 7634419000,
+          "variance_population": 1.8418938867266666e+17
+        },
+        "load_duration": {
+          "mean": 242149800,
+          "variance_population": 250805075060000
+        }
+      }
+    },
+    {
+      "model": "knightagent-automation:latest",
+      "split": "development",
+      "task_id": "office-script-copy",
+      "repetitions": 3,
+      "evaluated": 0,
+      "passed": 0,
+      "skipped": 3,
+      "pass_rate": null,
+      "pass_variance_population": null,
+      "mean_wall_seconds": 12.260333333333334,
+      "wall_variance_population": 0.3291368888888892,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2781,
+        "eval_count": 706,
+        "total_duration": 36712211800,
+        "eval_duration": 35634759000,
+        "load_duration": 765460400
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 927,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 235.33333333333334,
+          "variance_population": 70.22222222222223
+        },
+        "total_duration": {
+          "mean": 12237403933.333334,
+          "variance_population": 3.2260956881954886e+17
+        },
+        "eval_duration": {
+          "mean": 11878253000,
+          "variance_population": 2.8514590054066666e+17
+        },
+        "load_duration": {
+          "mean": 255153466.66666666,
+          "variance_population": 82260516508888.89
+        }
+      }
+    },
+    {
+      "model": "knightagent-automation:latest",
+      "split": "holdout",
+      "task_id": "python-edit-join",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 3,
+      "skipped": 0,
+      "pass_rate": 1.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 1.8279999999999998,
+      "wall_variance_population": 0.027410666666666646,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2811,
+        "eval_count": 81,
+        "total_duration": 4873826300,
+        "eval_duration": 3914673000,
+        "load_duration": 610140200
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 937,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 27,
+          "variance_population": 0
+        },
+        "total_duration": {
+          "mean": 1624608766.6666667,
+          "variance_population": 1.4655023517868888e+16
+        },
+        "eval_duration": {
+          "mean": 1304891000,
+          "variance_population": 848089986000000
+        },
+        "load_duration": {
+          "mean": 203380066.66666666,
+          "variance_population": 1123408726815555.5
+        }
+      }
+    },
+    {
+      "model": "knightagent-automation:latest",
+      "split": "holdout",
+      "task_id": "json-exact-format",
+      "repetitions": 3,
+      "evaluated": 3,
+      "passed": 3,
+      "skipped": 0,
+      "pass_rate": 1.0,
+      "pass_variance_population": 0,
+      "mean_wall_seconds": 1.1043333333333334,
+      "wall_variance_population": 0.0003842222222222214,
+      "ollama_metric_totals": {
+        "prompt_eval_count": 2691,
+        "eval_count": 51,
+        "total_duration": 3302492300,
+        "eval_duration": 2397370000,
+        "load_duration": 634623100
+      },
+      "ollama_metric_stats": {
+        "prompt_eval_count": {
+          "mean": 897,
+          "variance_population": 0
+        },
+        "eval_count": {
+          "mean": 17,
+          "variance_population": 0
+        },
+        "total_duration": {
+          "mean": 1100830766.6666667,
+          "variance_population": 138034505555555.56
+        },
+        "eval_duration": {
+          "mean": 799123333.3333334,
+          "variance_population": 28270661555555.555
+        },
+        "load_duration": {
+          "mean": 211541033.33333334,
+          "variance_population": 715811340408888.9
+        }
+      }
+    }
+  ],
+  "aggregate": [
+    {
+      "model": "qwen2.5:7b",
+      "split": "development",
+      "runs": 18,
+      "passed": 6,
+      "evaluated": 12,
+      "skipped": 6,
+      "pass_rate": 0.5,
+      "mean_wall_seconds": 9.271666666666667,
+      "wall_variance_population": 11.948642333333332,
+      "mean_prompt_tokens": 924.6666666666666,
+      "mean_output_tokens": 156.44444444444446
+    },
+    {
+      "model": "qwen2.5:7b",
+      "split": "holdout",
+      "runs": 6,
+      "passed": 6,
+      "evaluated": 6,
+      "skipped": 0,
+      "pass_rate": 1.0,
+      "mean_wall_seconds": 2.8906666666666667,
+      "wall_variance_population": 1.0731962222222224,
+      "mean_prompt_tokens": 917,
+      "mean_output_tokens": 22
+    },
+    {
+      "model": "knightagent-automation:latest",
+      "split": "development",
+      "runs": 18,
+      "passed": 6,
+      "evaluated": 12,
+      "skipped": 6,
+      "pass_rate": 0.5,
+      "mean_wall_seconds": 8.776055555555555,
+      "wall_variance_population": 5.168598163580247,
+      "mean_prompt_tokens": 924.6666666666666,
+      "mean_output_tokens": 156.44444444444446
+    },
+    {
+      "model": "knightagent-automation:latest",
+      "split": "holdout",
+      "runs": 6,
+      "passed": 6,
+      "evaluated": 6,
+      "skipped": 0,
+      "pass_rate": 1.0,
+      "mean_wall_seconds": 1.4661666666666666,
+      "wall_variance_population": 0.1448208055555555,
+      "mean_prompt_tokens": 917,
+      "mean_output_tokens": 22
+    }
+  ]
+}

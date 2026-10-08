@@ -110,12 +110,15 @@ class RoundedButton(ttk.Button):
         if isinstance(family, (tuple, list)):
             family = family[0]
         foreground = theme.BLACK if self._base_style.startswith("Accent") else theme.WHITE
-        self._style.configure(self._style_name, font=(family, 12),
+        self._style.configure(self._style_name,
+                              font=(family, 12, "bold") if self._base_style.startswith("Accent") else (family, 12),
                               padding=(round(14 * self._scale), round(9 * self._scale)),
                               foreground=foreground, borderwidth=0, relief="flat", anchor="center")
         # Explicit maps replace any inherited active color inversion.
         self._style.map(self._style_name,
-                        foreground=[("disabled", theme.MUTED), ("!disabled", foreground)],
+                        foreground=[("disabled", theme.MUTED),
+                                    ("active", theme.ORANGE if self._base_style.startswith("Ghost") else foreground),
+                                    ("!disabled", foreground)],
                         background=[], relief=[], bordercolor=[], lightcolor=[], darkcolor=[])
 
     def configure(self, cnf=None, **kwargs):
@@ -182,7 +185,7 @@ class RoundedButton(ttk.Button):
             else:
                 top = base if ghost else _mix(base, white, .018)
                 bottom = base
-                border = base if ghost else _rgb(theme.BORDER)
+                border = _mix(base, _rgb(theme.BORDER), .58) if ghost else _rgb(theme.BORDER)
         if "focus" in states:
             border = _mix(border, orange if not accent else white, .45 if not accent else .28)
         return top, bottom, border, background

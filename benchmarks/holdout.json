@@ -1,0 +1,31 @@
+[
+  {
+    "id": "python-edit-join",
+    "split": "holdout",
+    "language": "python",
+    "operation": "edit",
+    "prompt": "Edit the existing file and return only its full updated Python source. join_words(words) must strip surrounding whitespace from each word, discard empty entries, and join remaining words with exactly one space. Keep the function name. Do not import modules.",
+    "fixture": {"path": "join_words.py", "content": "def join_words(words):\n    return ''.join(words)\n"},
+    "agent": {"prompt": "Fix join_words.py: strip each word, discard blanks and join with one space. Save and review the file.", "target_path": "join_words.py"},
+    "checks": [
+      {"type": "python_syntax"},
+      {"type": "python_function", "function": "join_words", "cases": [
+        {"args": [[" one ", "two", " ", " three "]], "expected": "one two three"},
+        {"args": [[]], "expected": ""},
+        {"args": [["a", "b"]], "expected": "a b"}
+      ]}
+    ]
+  },
+  {
+    "id": "json-exact-format",
+    "split": "holdout",
+    "language": "json",
+    "operation": "format",
+    "prompt": "Output exactly one JSON object with status equal to ready and count equal to 3. No Markdown, no extra keys, no explanatory text.",
+    "agent": {"prompt": "Create result.json containing exactly {\"status\":\"ready\",\"count\":3}. Save and review it.", "target_path": "result.json"},
+    "checks": [
+      {"type": "json_schema", "fields": {"status": "string", "count": "integer"}},
+      {"type": "json_equals", "expected": {"status": "ready", "count": 3}}
+    ]
+  }
+]
