@@ -7,7 +7,14 @@ if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administra
     throw 'Execute este script como Administrador para bloquear a rede do KnightAgent.'
 }
 $runtimeRoot = Join-Path $projectRoot 'runtime\ollama'
-$programs = @((Join-Path $projectRoot 'KnightAgent.exe'), (Join-Path $runtimeRoot 'ollama.exe'))
+$programs = @((Join-Path $runtimeRoot 'ollama.exe'))
+$application = Join-Path $projectRoot 'KnightAgent.exe'
+if (Test-Path -LiteralPath $application -PathType Leaf) { $programs += $application }
+$venvScripts = Join-Path $projectRoot '.venv\Scripts'
+foreach ($name in @('python.exe', 'pythonw.exe', 'knightagent.exe', 'knightagent-gui.exe')) {
+    $candidate = Join-Path $venvScripts $name
+    if (Test-Path -LiteralPath $candidate -PathType Leaf) { $programs += $candidate }
+}
 $versionedExecutable = Join-Path $projectRoot 'KAgent V-0.1.exe'
 if (Test-Path -LiteralPath $versionedExecutable -PathType Leaf) { $programs += $versionedExecutable }
 $programs += @(Get-ChildItem -LiteralPath $runtimeRoot -Recurse -File -Filter '*.exe' | Select-Object -ExpandProperty FullName)

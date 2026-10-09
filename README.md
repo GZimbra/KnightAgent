@@ -338,7 +338,7 @@ if (-not (Test-Path -LiteralPath .\config.yaml)) {
 }
 ```
 
-Para conversar com a IA, disponibilize runtime/modelos e aplique o firewall conforme [Empacotar e distribuir](#empacotar-e-distribuir). Em uma cópia sem executáveis, gere-os antes de executar o script de firewall: ele exige `KnightAgent.exe` e o runtime privado.
+Para conversar com a IA, disponibilize runtime/modelos e aplique o firewall. O [pacote de código e IA local](docs/pacote-codigo-ia.md) permite restaurar Ollama e os pesos sem distribuir o executável KnightAgent. O script de firewall aceita a instalação pelo código em `.venv` e o runtime privado.
 
 ```powershell
 # Interface a partir do código instalado.
